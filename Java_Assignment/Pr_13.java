@@ -1,0 +1,54 @@
+// **THIS PROGRAM IS PREPARED BY DIVY_21CE134**
+package Java_Assignment;
+
+import java.io.File; 
+import java.io.IOException;
+import java.util.*; 
+
+public class Pr_13 {
+    public static void sortArray(String[] student, int k) {
+        for (int i = 0; i < k - 1; i++) {
+            for (int j = 0; j < k - i - 1; j++) {
+                if (student[j].compareTo(student[j + 1]) > 0) {
+                    String temp = student[j];
+                    student[j] = student[j + 1];
+                    student[j + 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < k; i++) {
+            System.out.println(student[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        String student[] = new String[500];
+        int counter = 0;
+        try {
+            for (int i = 0; i < args.length; i++) {
+                File file = new File(args[i]);
+                Scanner scnr = new Scanner(file);
+                while (scnr.hasNextLine()) {
+                    String line = scnr.nextLine();
+                    int flag = 0;
+                    for (int j = 0; j < counter; j++) {
+                        if (line.compareTo(student[j]) == 0) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 0) {
+                        student[counter] = line;
+                        counter++;
+                    }
+                }
+                scnr.close();
+            }
+            System.out.println("The list of students in ascending order:");
+            sortArray(student, counter);
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+}
